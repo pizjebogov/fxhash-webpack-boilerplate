@@ -1,0 +1,128 @@
+let seed=Math.round(fxrand() * 10000000,0); // generate a random seed for fx_hash
+let minimal,canv;
+let WaterText;
+let scribble;
+let FlowerTextOrig,FlowerTextReversed;
+
+let n=4;
+let d=3;
+
+let k= (n/d);
+var baseR;
+
+let MainFlowerColor=Math.floor(fxrand()*360)
+
+function setup() {
+  minimal=min(window.innerWidth, window.innerHeight)
+  canv=createCanvas(minimal*0.75, minimal);
+  colorMode(HSB, 360, 100, 100, 100);
+  rectMode(CENTER);
+  angleMode(DEGREES)
+  randomSeed(seed);
+  canv.position(window.innerWidth/2-minimal/2*0.75,window.innerHeight/2-minimal/2)
+
+
+  baseR=minimal/150
+  scribble= new Scribble()
+
+  FlowerTextOrig=createGraphics(width,height/100*40)
+  FlowerTextOrig.translate(FlowerTextOrig.width/2,FlowerTextOrig.height)
+  FlowerTextOrig.angleMode(DEGREES)
+  FlowerTextOrig.colorMode(HSB,360,100,100,100)
+  branch(40,0)
+
+  FlowerTextReversed=createGraphics(width,height/100*40)
+  //FlowerTextReversed.pixelDensity(10)
+  FlowerTextOrig.loadPixels()
+  for(let i=0;i<FlowerTextOrig.width;i+=1){
+    for(let j=0;j<FlowerTextOrig.height;j+=1){
+      let c=FlowerTextOrig.get(i,j)
+      FlowerTextReversed.set(i,FlowerTextReversed.height-j,c)
+    }
+  }
+  FlowerTextReversed.updatePixels() 
+
+  noLoop()
+}
+
+
+function draw() {
+  background(255)
+
+  noStroke()
+  linearGradient(
+    width/2, 0, //Start point
+    width/2, height, //End point
+    "indigo", //Start color
+    "black", //End color
+  );
+  
+  drawingContext.shadowBlur=0
+  rect(width/2,height/2,width,height)
+
+  
+
+  image(FlowerTextReversed,0,height/100*40)
+  strokeWeight(0.75)
+  let from=color(220,52,73,50)
+  let to=color(176,90,50,50)
+  for(let i=height/100*40;i<=height;i+=height/1500){   
+    let c = lerpColor(from,to,map(i,height*0.4,height,0,1))
+    stroke(c)
+    scribble.scribbleLine( 0, i, width, i );
+  }
+  image(FlowerTextOrig,0,0)
+
+}
+window.addEventListener('resize',setup);
+
+function linearGradient(sX, sY, eX, eY, colorS, colorE){
+  let gradient = drawingContext.createLinearGradient(
+    sX, sY, eX, eY
+  );
+  gradient.addColorStop(0, colorS);
+  gradient.addColorStop(1, colorE);
+  drawingContext.fillStyle = gradient;
+}
+
+function keyTyped(){
+  if(key=='s' || key=='S'){
+    saveCanvas('Claws.png');
+  }
+}
+
+
+
+function branch(len,variance){
+  FlowerTextOrig.push()
+  if(len>10){
+    FlowerTextOrig.strokeWeight(map(len,10,40,1,10));
+    FlowerTextOrig.stroke('black');
+    FlowerTextOrig.line(0,0,0,-len);
+    FlowerTextOrig.translate(0,-len);
+    FlowerTextOrig.rotate(random(-40,-45));
+    branch(len*random(0.87,0.92),random())
+    FlowerTextOrig.rotate(random(80,90));
+    branch(len*random(0.87,0.92),random())
+  }
+  else{
+    if(variance<0.98){
+      FlowerTextOrig.fill(color(100,100,100,50))
+      FlowerTextOrig.stroke('black')
+      FlowerTextOrig.ellipse(0,0,minimal/50,minimal/100)
+    }
+    else{
+      FlowerTextOrig.fill(color(MainFlowerColor,100,100,100))
+      FlowerTextOrig.stroke('black')
+      FlowerTextOrig.beginShape();
+    for(let i=0;i<360*d;i+=1){
+      let rad = 3*baseR * cos(k * i);
+      let x=rad*cos(i);
+      let y=rad*sin(i);
+      FlowerTextOrig.vertex(x,y)
+    }
+    FlowerTextOrig.endShape();
+    }
+  }
+  FlowerTextOrig.pop()
+}

@@ -9,8 +9,8 @@
     "build": "webpack --config ./config/webpack.config.prod.js",
     "start": "webpack serve --config ./config/webpack.config.dev.js"
   },
-  "dependencies": {},
   "devDependencies": {
+    "@types/p5": "^1.4.2",
     "adm-zip": "^0.5.9",
     "copy-webpack-plugin": "^9.0.1",
     "css-loader": "^6.4.0",
