@@ -42,6 +42,9 @@ function draw() {
   clear()
   background(255)
   image(sunText,0,0)
+  for(let i=0;i<height;i+=1){
+    scribble.scribbleLine(0,i,width,i)
+  }
   fxpreview()
 
 }
