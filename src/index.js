@@ -26,6 +26,7 @@ window.$fxhashFeatures = {
     "Theme": BGVariance,
     "Water": WaterVariance,
     "Flower": myFlowerVar,
-    "Flower Color Hue": MainFlowerColor
+    "Flower Color Hue": MainFlowerColor,
+    "Foreground":firstGVAR
   
 }
