@@ -66,8 +66,10 @@ let WaterVariance=WaterPalette[0]
 let FWC,SWC;
 
 
+
 function setup() {
   minimal=min(window.innerWidth, window.innerHeight)
+
   canv=createCanvas(minimal*0.75, minimal);
   colorMode(HSB, 360, 100, 100, 100);
   
@@ -163,6 +165,7 @@ function setup() {
     }
   } 
   noLoop()
+
 }
 
 function doResize(){
@@ -171,6 +174,7 @@ function doResize(){
 }
 
 function draw() {
+
   clear()
   //noFilter()
   background(0)
@@ -245,7 +249,5 @@ function branch(len,variance){
     }
   }
   FlowerTextOrig.pop()
+
 }
-
-
-
