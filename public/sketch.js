@@ -43,6 +43,9 @@ switch(myFlowerVar){
     break;
 }
 
+let firstGroundVar=['Nothing','Grass','Reeds']
+firstGroundVar.sort(()=>fxrand()-0.5);
+let firstGVAR=firstGroundVar[0]
 let MainFlowerColor=Math.floor(fxrand()*360)
 
 let BGPalette=['Day','Night']
@@ -150,7 +153,7 @@ function setup() {
       SWC=color(211,95,44,50)
       break;
   }
-
+if(firstGVAR=='Grass'){
   grassText = createGraphics(width,height)
   
    for(let i=0;i<2000;i+=1){
@@ -164,6 +167,39 @@ function setup() {
       grassText.circle(map(noise(j,i),0,1,v3.x-width/10,v3.x+width/10),v3.y,map(j,0,1,minimal/50,0))
     }
   } 
+}
+else if(firstGVAR=='Nothing'){
+  grassText = createGraphics(width,height)
+}
+else if(firstGVAR=='Reeds'){
+  grassText = createGraphics(width,height)
+  
+   for(let i=0;i<200;i+=1){
+    grassText.noStroke()
+    let v1 = createVector(random(0,width/100*40),height)
+    let v2 = createVector(0,random(height*0.25,height*0.95))
+    let FC=random(30,100)
+    for(let j=0;j<1;j+=0.01){
+      let v3 = p5.Vector.lerp(v1,v2,j)
+      grassText.fill(color(FC,80,map(j,0,1,60,0),50))
+      grassText.circle(map(noise(j,i),0,1,v3.x-width/10,v3.x+width/10),v3.y,map(j,0,1,minimal/50,0))
+    }
+  }
+
+  for(let i=0;i<200;i+=1){
+    grassText.noStroke()
+    let v1 = createVector(random(grassText.width/100*60,grassText.width),height)
+    let v2 = createVector(grassText.width,random(height*0.25,height*0.95))
+    let FC=random(30,100)
+    for(let j=0;j<1;j+=0.01){
+      let v3 = p5.Vector.lerp(v1,v2,j)
+      grassText.fill(color(FC,80,map(j,0,1,60,0),50))
+      grassText.circle(map(noise(j,i),0,1,v3.x-width/10,v3.x+width/10),v3.y,map(j,0,1,minimal/50,0))
+    }
+  }
+}
+
+
   noLoop()
 
 }
