@@ -9,6 +9,8 @@ let THEME=DayNightTheme[0]
 let FHC,SHC;
 let memory=fxrand()*(0.75);
 let memoryPercentage=Math.floor((memory*100)/0.75)
+
+let bgScrib;
 function setup() {
   canv=createCanvas(window.innerWidth, window.innerHeight*0.75);
 
@@ -57,7 +59,18 @@ function setup() {
     backTexture.rect(random(0,width),random(0,height/2),random(width/150,width/25),height/2)
     pop()
   }
-  //noLoop()
+
+  bgScrib = new Scribble(backTexture)
+  backTexture.loadPixels()
+  for(let i=0;i<width;i+=3){
+    for(let j=0;j<height;j+=3){
+      let c=backTexture.get(i,j)
+      backTexture.fill(c)
+      backTexture.noStroke()
+      bgScrib.scribbleEllipse(i,j,3,3)
+    }
+  }
+  noLoop()
 
 }
 
@@ -74,7 +87,7 @@ function draw() {
   image(backTexture,0,0)
   image(waterTexture,0,0)
   
-    loadPixels()
+    /* loadPixels()
   for(let i=0;i<width;i+=1){
     for(let j=0;j<height;j+=1){
       let r=random()
@@ -95,8 +108,9 @@ function draw() {
         
       }
     }
-  }
-  updatePixels() 
+  } 
+  updatePixels() */
+
 
 
 
