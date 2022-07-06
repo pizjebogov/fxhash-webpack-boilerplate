@@ -23,10 +23,10 @@ console.log(fxrand()) // deterministic PRNG function, use it instead of Math.ran
 // this code writes the values to the DOM as an example
 
 window.$fxhashFeatures = {
-    "Theme": BGVariance,
-    "Water": WaterVariance,
-    "Flower": myFlowerVar,
-    "Flower Color Hue": MainFlowerColor,
-    "Foreground":firstGVAR
+    "Theme": THEME,
+    "Water": WTHEME,
+    "Accessory": ACCESSORY,
+    "Background Landscape": BTHEME,
+    "Memory Corruption Percentage": memoryPercentage
   
 }
